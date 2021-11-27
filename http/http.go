@@ -47,6 +47,8 @@ func Get(uri string) (*http.Response, error) {
 			panic(err) // believe never
 		}
 	}()
+	fmt.Printf("###http### local addr: %v\n", conn.LocalAddr())
+	fmt.Printf("###http### remote addr: %v\n", conn.RemoteAddr())
 	conn.Write([]byte(fmt.Sprintf("GET %v HTTP/1.1\r\nHost: %v\r\n\r\n", u.Path, u.Host)))
 	reader := bufio.NewReader(conn)
 	sstatus, p, err := reader.ReadLine()
