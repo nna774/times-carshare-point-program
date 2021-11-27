@@ -38,7 +38,7 @@ func Get(uri string) (*http.Response, error) {
 			panic(err) // believe never
 		}
 	}()
-	conn.Write([]byte(fmt.Sprintf("GET / HTTP/1.1\r\nHost: %v\r\n\r\n", u.Host))) // kime
+	conn.Write([]byte(fmt.Sprintf("GET %v HTTP/1.1\r\nHost: %v\r\n\r\n", u.Path, u.Host)))
 	reader := bufio.NewReader(conn)
 	sstatus, p, err := reader.ReadLine()
 	status := string(sstatus)
