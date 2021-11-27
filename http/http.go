@@ -30,7 +30,7 @@ func Get(uri string) (*http.Response, error) {
 	}
 	conn, err := tcp.NewTCPConnection(u.Host, 80) // kimeuchi
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("tcp conn creation failed: %v", err)
 	}
 	defer func() {
 		err = conn.Close()
