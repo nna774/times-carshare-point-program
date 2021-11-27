@@ -29,15 +29,15 @@ func Get(uri string) (*http.Response, error) {
 		return nil, err
 	}
 	conn, err := tcp.NewTCPConnection(u.Host, 80) // kimeuchi
+	if err != nil {
+		return nil, err
+	}
 	defer func() {
 		err = conn.Close()
 		if err != nil {
 			panic(err) // believe never
 		}
 	}()
-	if err != nil {
-		return nil, err
-	}
 	conn.Write([]byte(fmt.Sprintf("GET / HTTP/1.1\r\nHost: %v\r\n\r\n", u.Host))) // kime
 	reader := bufio.NewReader(conn)
 	sstatus, p, err := reader.ReadLine()
