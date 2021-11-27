@@ -31,7 +31,12 @@ func Get(uri string) (*http.Response, error) {
 	if u.Scheme != "http" {
 		return nil, fmt.Errorf("unimpled scheme: %v", u.Scheme)
 	}
-	port, _ := strconv.Atoi(u.Port())
+	fmt.Printf("###http### target port: %v\n", u.Port())
+	sport := u.Port()
+	if sport == "" {
+		sport = "80"
+	}
+	port, _ := strconv.Atoi(sport)
 	conn, err := tcp.NewTCPConnection(u.Host, port)
 	if err != nil {
 		return nil, fmt.Errorf("tcp conn creation failed: %v", err)
